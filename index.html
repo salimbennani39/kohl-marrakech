@@ -1,0 +1,713 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>KOHL Marrakech · De midi à 4h</title>
+<meta property="og:image" content="https://salimbennani39.github.io/kohl-marrakech/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="KOHL Marrakech, restaurant, lounge et chicha. Terrasse chauffée, Route de Fès, Palmeraie. Ouvert tous les jours de 12h à 4h.">
+<meta name="theme-color" content="#2B130D">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='16' fill='%23A04A2E'/><path d='M16 7l9 9-9 9-9-9z' fill='none' stroke='%23F1DDB0' stroke-width='2'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/noon-wall.webp">
+<link rel="stylesheet" href="scrollcraft.css">
+<style>
+  :root {
+    --sc-canvas:     #150B09;
+    --sc-surface:    #22120E;
+    --sc-ink:        #F4E7D0;
+    --sc-ink-soft:   #D2BC9E;
+    --sc-accent:     #E9C27E;
+    --sc-accent-ink: #1E0F0B;
+    --sc-font-display: "Cormorant Garamond", "Times New Roman", serif;
+    --sc-font-text:    "Jost", system-ui, sans-serif;
+    --sc-font-mono:    "Jost", system-ui, sans-serif;
+    --sc-shadow-color: 12 50% 4%;
+    --sc-r-md: 4px; --sc-r-sm: 3px;
+
+    --clay:     #A04A2E;
+    --plaster:  #EFE4D2;
+    --oxblood:  #3A1510;
+    --interior: #2B130D;
+    --night:    #07040A;
+    --plum:     #120A10;
+    --neon:     #FFB45E;
+  }
+
+  body { background: var(--sc-canvas); }
+  .sc-display { font-weight: 500; letter-spacing: -0.01em; line-height: 0.98; }
+  .sc-display em { font-style: italic; }
+  .sc-body { line-height: 1.66; letter-spacing: 0.005em; }
+
+  /* ------------------------------------------------------------ the clock */
+  .clock {
+    position: fixed; z-index: var(--sc-z-chrome);
+    top: 50%; right: clamp(0.75rem, 1.6vw, 1.75rem);
+    transform: translateY(-50%);
+    width: 9.75rem;
+    padding: 1rem 1rem 0.9rem;
+    background: color-mix(in oklab, var(--clay) 92%, black);
+    color: #F7E9CF;
+    border-radius: 4.875rem 4.875rem 6px 6px;
+    box-shadow: var(--sc-e2), inset 0 1px 0 rgb(255 240 210 / 0.18);
+    transition: background-color 500ms var(--sc-ease-out), color 500ms var(--sc-ease-out);
+  }
+  .clock__brand {
+    display: flex; flex-direction: column; align-items: center; gap: 0.15rem;
+    text-decoration: none; padding-top: 0.25rem;
+  }
+  .clock__brand svg { width: 1.15rem; height: 1.15rem; }
+  .clock__brand span {
+    font-family: var(--sc-font-display); font-weight: 600;
+    font-size: 1.05rem; letter-spacing: 0.24em; margin-right: -0.24em;
+  }
+  .clock__arc { display: block; width: 100%; height: auto; margin: 0.55rem 0 0.1rem; overflow: visible; }
+  .clock__arc path { fill: none; stroke: currentColor; stroke-opacity: 0.32; stroke-width: 1; stroke-dasharray: 2 3; }
+  .clock__dot { fill: var(--sc-accent); transition: fill 500ms var(--sc-ease-out); }
+  .clock__time {
+    display: block; text-align: center;
+    font-family: var(--sc-font-text); font-weight: 500;
+    font-size: 1.7rem; line-height: 1; letter-spacing: 0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+  .clock__hours { list-style: none; margin: 0.8rem 0 0; padding: 0.7rem 0 0; border-top: 1px solid rgb(247 233 207 / 0.18); }
+  .clock__hours a {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: 0.28rem 0.15rem; text-decoration: none;
+    font-size: 0.8rem; letter-spacing: 0.04em; color: rgb(247 233 207 / 0.66);
+    border-radius: 3px;
+    transition: color 160ms var(--sc-ease-out);
+  }
+  .clock__hours a b { font-weight: 500; font-variant-numeric: tabular-nums; }
+  .clock__hours a[aria-current="true"] { color: #F7E9CF; }
+  .clock__hours a[aria-current="true"] b { color: var(--sc-accent); }
+  @media (hover: hover) and (pointer: fine) { .clock__hours a:hover { color: #F7E9CF; } }
+  .clock__cta {
+    display: block; margin-top: 0.8rem; padding: 0.62rem 0.5rem;
+    text-align: center; text-decoration: none;
+    font-size: 0.82rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+    background: var(--sc-accent); color: var(--sc-accent-ink);
+    border-radius: 3px;
+    transition: transform 140ms var(--sc-ease-out), background-color 500ms var(--sc-ease-out);
+  }
+  .clock__cta:active { transform: scale(0.97); }
+  .clock__now { display: none; }
+
+  /* Night: the chrome switches when the neon does. */
+  body[data-phase="night"] {
+    --sc-accent: var(--neon);
+  }
+  body[data-phase="night"] .clock {
+    background: color-mix(in oklab, #0C0710 88%, transparent);
+    box-shadow: var(--sc-e2), inset 0 0 0 1px rgb(255 180 94 / 0.22);
+  }
+  body[data-phase="night"] .clock__time { color: var(--neon); }
+
+  /* ------------------------------------------------------- shared bits */
+  .btn {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    padding: 0.95rem 1.5rem; border-radius: 3px;
+    background: var(--sc-accent); color: var(--sc-accent-ink);
+    font-size: 0.86rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
+    text-decoration: none; white-space: nowrap;
+    box-shadow: var(--sc-e1);
+    transition: transform 140ms var(--sc-ease-out), filter 160ms var(--sc-ease-out);
+  }
+  .btn:active { transform: scale(0.97); }
+  @media (hover: hover) and (pointer: fine) { .btn:hover { filter: brightness(1.06); } }
+  .link {
+    color: inherit; font-size: 0.92rem; letter-spacing: 0.06em;
+    text-decoration: underline; text-decoration-color: color-mix(in oklab, currentColor 45%, transparent);
+    text-underline-offset: 0.3em;
+  }
+  .scene { position: relative; }
+  .mark { width: 2.2rem; height: 2.2rem; color: var(--sc-accent); }
+
+  /* ===================================================== 12h · La porte */
+  .noon { background: linear-gradient(180deg, #8EBBD6 0%, #B5D5E2 34%, #D6E3E3 62%, #E8E2D4 100%); }
+  .noon__sun {
+    position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(60vmax 40vmax at 82% 4%, rgb(255 246 222 / 0.75), transparent 70%);
+  }
+  /* Everything in the opening is laid out against the opening's own box. */
+  .noon__scene, .noon__door {
+    position: absolute;
+    left: var(--op-x); top: var(--op-y); width: var(--op-w); height: var(--op-h);
+  }
+  .noon { --op-x: 40vw; --op-y: 8vh; --op-w: 46vw; --op-h: 92vh; --wall-top: 4%; --pmx: 0; --pmy: 0;
+           --dp: clamp(0, calc((var(--sc-p, 0) - 0.24) / 0.76), 1);
+           --shift: calc(var(--dp) * (50vw - var(--op-x) - var(--op-w) / 2)); }
+  .noon__scene { transform: translate3d(var(--shift), 0, 0); }
+  .noon__word {
+    position: absolute; left: 50%; top: 14%;
+    margin: 0; font-family: var(--sc-font-display); font-weight: 600;
+    font-size: calc(var(--op-w) * 0.235); line-height: 0.8;
+    letter-spacing: 0.04em; margin-left: 0.02em;
+    color: #7E2F1C;
+    white-space: nowrap;
+    transform: translate3d(calc(-50% + var(--pmx) * 10px), calc(46% - var(--sc-p, 0) * 128% + var(--pmy) * 6px), 0) scale(calc(1 + var(--sc-p, 0) * 0.1));
+  }
+  .noon__wall {
+    position: absolute; top: var(--wall-top); left: -9%;
+    width: 118%; max-width: none; height: auto;
+    transform-origin: 50% 22%;
+    transform: translate3d(calc(var(--pmx) * 16px), calc(var(--pmy) * 8px), 0) scale(calc(1 + var(--sc-p, 0) * 0.12));
+  }
+  /* The interior wall: an arch-shaped hole whose shadow paints the wall. */
+  .noon__door {
+    border-radius: calc(var(--op-w) / 2) calc(var(--op-w) / 2) 0 0;
+    box-shadow: 0 0 0 220vmax var(--interior), inset 0 0 0 calc(var(--op-w) * 0.022) #4A2216, inset 0 0 calc(var(--op-w) * 0.08) rgb(20 8 4 / 0.55);
+    transform-origin: 50% 100%;
+    transform: translate3d(calc(var(--shift) + var(--pmx) * -26px), calc(var(--pmy) * -10px), 0) scale(calc(1 + var(--dp) * 0.3));
+    pointer-events: none;
+  }
+  .noon__beam {
+    position: absolute; left: 0; bottom: 0; width: 64vw; height: 46vh; pointer-events: none;
+    background: linear-gradient(200deg, rgb(255 226 170 / 0) 30%, rgb(255 214 150 / 0.13) 62%, rgb(255 214 150 / 0) 92%);
+    clip-path: polygon(74% 0, 100% 0, 58% 100%, 0 100%);
+    opacity: calc(1 - var(--sc-p, 0) * 1.4);
+  }
+  .noon__copy {
+    position: absolute; z-index: var(--sc-z-copy);
+    left: var(--sc-gutter); bottom: clamp(3rem, 13vh, 8rem);
+    width: min(36vw, 34rem);
+  }
+  .noon__copy h1 { font-size: clamp(2.8rem, 1.6rem + 3.6vw, 5.6rem); line-height: 0.96; }
+  .noon__copy h1 em { color: var(--sc-accent); }
+  .noon__copy p { margin-top: 1.4rem; max-width: 34ch; color: var(--sc-ink-soft); }
+  .noon__copy .btn { margin-top: 2rem; }
+  .noon__tag {
+    position: absolute; z-index: var(--sc-z-copy);
+    left: var(--sc-gutter); top: clamp(1.5rem, 5vh, 3rem);
+    display: flex; align-items: center; gap: 0.8rem;
+    font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sc-ink-soft);
+  }
+  .noon__tag .mark { width: 1.5rem; height: 1.5rem; }
+
+  /* ===================================================== 13h · Déjeuner */
+  .lunch {
+    --sc-ink: #2A1610; --sc-ink-soft: #6A4A3A; --sc-accent: #A04A2E; --sc-accent-ink: #FBF1E0;
+    color: var(--sc-ink); background: var(--plaster);
+  }
+  .lunch [data-sc-stage] { display: flex; align-items: center; }
+  .rail { gap: clamp(1.5rem, 3vw, 3.25rem); padding-inline: var(--sc-gutter) 14rem; align-items: flex-end; }
+  .rail__lead { flex: 0 0 min(30rem, 78vw); align-self: center; }
+  .rail__lead h2 { font-size: var(--sc-t-3xl); }
+  .rail__lead p { margin-top: 1.25rem; max-width: 34ch; }
+  .dish { flex: 0 0 clamp(15rem, 23vw, 21rem); margin: 0; }
+  .dish:nth-of-type(even) { transform: translateY(-7vh); }
+  .dish__img {
+    aspect-ratio: 3 / 4; overflow: hidden;
+    border-radius: 999px 999px 4px 4px;
+    box-shadow: var(--sc-e2);
+    background: #E2D3BC;
+  }
+  .dish__img img { width: 100%; height: 100%; object-fit: cover; }
+  .dish figcaption { padding-top: 1rem; }
+  .dish h3 { margin: 0; font-family: var(--sc-font-display); font-weight: 600; font-size: 1.55rem; line-height: 1.05; }
+  .dish p { margin: 0.35rem 0 0; font-size: 0.92rem; color: var(--sc-ink-soft); }
+  .rail__note { flex: 0 0 min(19rem, 70vw); align-self: center; }
+  .rail__note p { font-family: var(--sc-font-display); font-style: italic; font-size: 1.7rem; line-height: 1.15; margin: 0 0 1.4rem; }
+
+  /* ===================================================== 17h · Terrasse */
+  .terrace {
+    background: radial-gradient(90vmax 70vmax at 78% 30%, #8C3A24 0%, #5E2416 60%, #43180F 100%);
+  }
+  .terrace [data-sc-stage] { display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding-inline: var(--sc-gutter) calc(var(--sc-gutter) + 9rem); gap: clamp(2rem, 5vw, 6rem); }
+  .terrace__copy h2 { font-size: var(--sc-t-3xl); }
+  .terrace__copy p { margin-top: 1.5rem; max-width: 36ch; }
+  .window {
+    position: relative; justify-self: center;
+    height: min(78vh, 52rem); aspect-ratio: 0.8;
+    border-radius: 999px 999px 4px 4px; overflow: hidden;
+    box-shadow: var(--sc-e3), 0 0 0 10px #4A1C12;
+    --q: clamp(0, calc((var(--sc-p, 0) - 0.1) / 0.62), 1);
+  }
+  .window img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .window__dusk { clip-path: inset(0 0 calc((1 - var(--q)) * 100%) 0); }
+  .window__day { transform: scale(calc(1.08 - var(--q) * 0.08)); }
+
+  /* ======================================================== 20h · Le bar */
+  .bar {
+    background: var(--oxblood);
+    padding-block: clamp(5rem, 11vw, 10rem);
+  }
+  .bar__grid {
+    display: grid; grid-template-columns: repeat(12, 1fr); column-gap: clamp(1rem, 2vw, 2rem);
+    padding-inline: var(--sc-gutter) calc(var(--sc-gutter) + 9rem);
+    max-width: 96rem; margin-inline: auto;
+  }
+  .bar__main { grid-column: 1 / span 6; grid-row: 1 / span 2; margin: 0; position: relative; }
+  .bar__main img, .bar__pour img, .bar__counter img { width: 100%; height: auto; border-radius: 4px; box-shadow: var(--sc-e3); }
+  .bar__copy { grid-column: 8 / span 5; grid-row: 1; align-self: end; padding-bottom: 2rem; }
+  .bar__copy h2 { font-size: var(--sc-t-3xl); }
+  .bar__copy p { margin-top: 1.4rem; }
+  .bar__pour { grid-column: 8 / span 4; grid-row: 2; margin: 0; align-self: start; }
+  .bar__counter {
+    position: absolute; width: 42%; right: -14%; bottom: -12%; margin: 0;
+    border: 8px solid var(--oxblood); border-radius: 8px;
+  }
+
+  /* =========================================================== 21h · Nuit */
+  .nuit { background: var(--night); }
+  .nuit [data-sc-stage] { background: var(--night); }
+  .nuit__hush {
+    position: absolute; left: 50%; top: 50%; translate: -50% -50%; margin: 0;
+    font-family: var(--sc-font-display); font-style: italic; font-size: clamp(1.4rem, 1.1rem + 1vw, 2rem);
+    color: #CDBBD8; white-space: nowrap;
+  }
+  .facade {
+    position: absolute; top: 0; bottom: 0; left: 50%;
+    height: 100%; aspect-ratio: 1012 / 1352; translate: -36% 0;
+    -webkit-mask-image: radial-gradient(70% 62% at 52% 46%, #000 62%, transparent 100%);
+            mask-image: radial-gradient(70% 62% at 52% 46%, #000 62%, transparent 100%);
+  }
+  .facade img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; }
+  .nuit__copy {
+    position: absolute; z-index: var(--sc-z-copy);
+    left: var(--sc-gutter); bottom: clamp(3rem, 14vh, 8rem); width: min(30vw, 30rem);
+  }
+  .nuit__copy h2 { font-size: var(--sc-t-3xl); }
+  .nuit__copy h2 em { color: var(--neon); }
+  .nuit__copy p { margin-top: 1.3rem; color: #D8C6CF; }
+
+  /* ========================================================= 00h · Lounge */
+  .lounge { background: var(--plum); padding-block: clamp(6rem, 12vw, 11rem) clamp(8rem, 14vw, 13rem); overflow: clip; }
+  .lounge__grid {
+    position: relative; display: grid; grid-template-columns: repeat(12, 1fr); column-gap: clamp(1rem, 2vw, 2rem);
+    padding-inline: var(--sc-gutter) calc(var(--sc-gutter) + 9rem); max-width: 96rem; margin-inline: auto;
+  }
+  .lounge__copy { grid-column: 1 / span 4; grid-row: 1; align-self: center; position: relative; z-index: 2; }
+  .lounge__copy h2 { font-size: var(--sc-t-3xl); }
+  .lounge__copy p { margin-top: 1.4rem; color: #D6C3CC; }
+  .lounge figure { margin: 0; }
+  .lounge img { width: 100%; height: auto; border-radius: 4px; box-shadow: var(--sc-e3); }
+  .lounge__a { grid-column: 5 / span 4; grid-row: 1; }
+  .lounge__b { grid-column: 10 / span 3; grid-row: 1; align-self: start; margin-top: -4rem !important; }
+  .lounge__c { grid-column: 9 / span 3; grid-row: 1; align-self: end; margin-bottom: -9rem !important; position: relative; z-index: 1; }
+
+  /* ======================================================= 04h · Réserver */
+  .close { background: #0E0709; }
+  .close [data-sc-stage] { display: grid; grid-template-columns: 1.05fr 0.95fr; }
+  .close__copy {
+    align-self: center; padding: 0 clamp(2rem, 5vw, 6rem) 0 var(--sc-gutter);
+  }
+  .close__copy .mark { margin-bottom: 1.8rem; }
+  .close__copy h2 { font-size: var(--sc-t-3xl); }
+  .close__copy p { margin-top: 1.4rem; max-width: 38ch; }
+  .close__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 1.1rem 1.75rem; margin-top: 2.25rem; }
+  .close__photo { position: relative; overflow: hidden; margin: 0; }
+  .close__photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 70%; }
+  .close__photo::before {
+    content: ""; position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(90deg, #0E0709 0%, rgb(14 7 9 / 0) 26%);
+  }
+  .foot {
+    position: absolute; left: var(--sc-gutter); right: var(--sc-gutter); bottom: 1.25rem; z-index: 3;
+    display: flex; flex-wrap: wrap; gap: 0.4rem 1.6rem;
+    font-size: 0.78rem; letter-spacing: 0.04em; color: #B9A79A;
+  }
+  .foot a { color: inherit; }
+
+  /* ============================================================== phone */
+  @media (max-width: 860px) {
+    .clock {
+      top: auto; bottom: 0; right: 0; left: 0; transform: none; width: auto;
+      display: flex; align-items: center; gap: 0.9rem;
+      padding: 0.6rem 0.75rem calc(0.6rem + env(safe-area-inset-bottom)) 1rem;
+      border-radius: 0;
+      background: color-mix(in oklab, var(--clay) 94%, black);
+    }
+    .clock__brand { flex-direction: row; gap: 0.45rem; padding: 0; }
+    .clock__brand span { font-size: 0.95rem; }
+    .clock__arc, .clock__hours { display: none; }
+    .clock__time { font-size: 1.3rem; margin-left: auto; }
+    .clock__now { display: block; font-size: 0.78rem; letter-spacing: 0.06em; color: rgb(247 233 207 / 0.75); }
+    .clock__cta { margin: 0; padding: 0.7rem 0.95rem; font-size: 0.74rem; min-height: 44px; display: flex; align-items: center; }
+
+    .noon { --op-x: 7vw; --op-y: 41svh; --op-w: 86vw; --op-h: 59svh; --wall-top: 6%; }
+    .noon__copy { left: var(--sc-gutter); right: var(--sc-gutter); top: clamp(4rem, 9svh, 5.5rem); bottom: auto; width: auto; }
+    .noon__copy h1 { font-size: clamp(2.3rem, 10.5vw, 3.2rem); }
+    .noon__copy p { font-size: 0.98rem; margin-top: 0.9rem; }
+    .noon__copy .btn { display: none; }
+    .noon__tag { top: 1.25rem; }
+    .noon__beam { display: none; }
+
+    .rail { padding-inline: var(--sc-gutter) 4rem; }
+    .dish { flex-basis: 64vw; }
+    .dish:nth-of-type(even) { transform: translateY(-4vh); }
+
+    .terrace [data-sc-stage] {
+      grid-template-columns: 1fr; grid-template-rows: auto 1fr; align-content: start;
+      padding: clamp(3.5rem, 9svh, 5rem) var(--sc-gutter) 5rem; gap: 1.75rem;
+    }
+    .terrace__copy h2 { font-size: var(--sc-t-2xl); }
+    .terrace__copy p { margin-top: 0.9rem; font-size: 0.98rem; }
+    .window { height: min(56svh, 30rem); }
+
+    .bar__grid, .lounge__grid { padding-inline: var(--sc-gutter); row-gap: 2rem; }
+    .bar__main { grid-column: 1 / -1; grid-row: 2; }
+    .bar__copy { grid-column: 1 / -1; grid-row: 1; padding-bottom: 0; }
+    .bar__pour { grid-column: 3 / -1; grid-row: 3; margin-top: 4rem; }
+    .bar__counter { width: 46%; right: auto; left: -2%; bottom: -26%; }
+
+    .facade { left: 0; right: 0; width: 100%; height: 100%; aspect-ratio: auto; translate: 0 0;
+      -webkit-mask-image: linear-gradient(180deg, #000 70%, transparent 100%); mask-image: linear-gradient(180deg, #000 70%, transparent 100%); }
+    .nuit__copy { left: var(--sc-gutter); right: var(--sc-gutter); width: auto; bottom: calc(5.5rem + env(safe-area-inset-bottom)); }
+    .nuit__copy h2 { font-size: var(--sc-t-2xl); }
+    .nuit__scrim { position: absolute; inset: 0; z-index: 2; pointer-events: none;
+      background: linear-gradient(0deg, rgb(7 4 10 / 0.92) 0%, rgb(7 4 10 / 0.6) 26%, rgb(7 4 10 / 0) 46%); }
+
+    .lounge__copy { grid-column: 1 / -1; grid-row: 1; }
+    .lounge__a { grid-column: 1 / span 8; grid-row: 2; }
+    .lounge__b { grid-column: 8 / span 5; grid-row: 2; margin-top: 3rem !important; position: relative; z-index: 1; }
+    .lounge__c { grid-column: 3 / span 7; grid-row: 3; margin: -3rem 0 0 !important; }
+
+    .close [data-sc-stage] { grid-template-columns: 1fr; grid-template-rows: 38svh auto; }
+    .close__photo { grid-row: 1; }
+    .close__photo::before { background: linear-gradient(0deg, #0E0709 0%, rgb(14 7 9 / 0) 40%); }
+    .close__copy { grid-row: 2; align-self: start; padding: 0.5rem var(--sc-gutter) 0; }
+    .close__copy .mark { display: none; }
+    .close__copy h2 { font-size: var(--sc-t-2xl); }
+    .close__copy p { font-size: 0.98rem; margin-top: 0.9rem; }
+    .close__actions { margin-top: 1.5rem; gap: 0.9rem 1.4rem; }
+    .foot { position: static; padding: 1.5rem var(--sc-gutter) calc(5.5rem + env(safe-area-inset-bottom)); grid-row: 3; }
+  }
+  @media (min-width: 861px) { .nuit__scrim { display: none; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .noon__word { transform: translate3d(-50%, 10%, 0); }
+    .noon__wall, .noon__door, .noon__scene { transform: none; }
+    .window__dusk { clip-path: none; opacity: var(--q); }
+    .window__day { transform: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sc-grain" aria-hidden="true"></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="knot" viewBox="0 0 40 40">
+    <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="miter">
+      <path d="M20 3 L37 20 L20 37 L3 20 Z"/>
+      <path d="M20 11 L29 20 L20 29 L11 20 Z"/>
+      <path d="M20 3 V11 M37 20 H29 M20 37 V29 M3 20 H11"/>
+      <rect x="17" y="17" width="6" height="6" transform="rotate(45 20 20)" fill="currentColor"/>
+    </g>
+  </symbol>
+</svg>
+
+<!-- The clock is the navigation. Scroll is the time of day at KOHL. -->
+<nav class="clock" aria-label="Les heures de KOHL">
+  <a class="clock__brand" href="#h12" aria-label="KOHL, retour en haut">
+    <svg aria-hidden="true"><use href="#knot"/></svg>
+    <span>KOHL</span>
+  </a>
+  <svg class="clock__arc" viewBox="0 0 120 40" aria-hidden="true">
+    <path d="M6 38 A54 34 0 0 1 114 38"/>
+    <circle class="clock__dot" r="3.6" cx="6" cy="38"/>
+  </svg>
+  <span class="clock__time" aria-hidden="true">12:00</span>
+  <span class="clock__now" aria-hidden="true">La porte</span>
+  <ol class="clock__hours">
+    <li><a href="#h12" aria-current="true"><span>La porte</span><b>12h</b></a></li>
+    <li><a href="#h13"><span>Déjeuner</span><b>13h</b></a></li>
+    <li><a href="#h17"><span>Terrasse</span><b>17h</b></a></li>
+    <li><a href="#h20"><span>Le bar</span><b>20h</b></a></li>
+    <li><a href="#h21" data-land="0.8"><span>La nuit</span><b>21h</b></a></li>
+    <li><a href="#h00"><span>Lounge</span><b>00h</b></a></li>
+  </ol>
+  <a class="clock__cta" href="#reserver">Réserver</a>
+</nav>
+
+<main>
+
+  <!-- 12h · LA PORTE. Five planes: sky, wordmark, wall, interior, light. -->
+  <section id="h12" class="scene" data-sc-act="pin" data-sc-span="1.8"
+           data-from="0" data-to="60" data-label="La porte">
+    <div data-sc-stage class="noon">
+      <div class="noon__sun" aria-hidden="true"></div>
+      <div class="noon__scene" aria-hidden="true">
+        <p class="noon__word">KOHL</p>
+        <img class="noon__wall" src="assets/noon-wall.webp" width="790" height="1336"
+             alt="" fetchpriority="high">
+      </div>
+      <div class="noon__door" aria-hidden="true"></div>
+      <div class="noon__beam" aria-hidden="true"></div>
+
+      <p class="noon__tag" data-sc-cue="0 0.34 0">
+        <svg class="mark" aria-hidden="true"><use href="#knot"/></svg>
+        Restaurant · Lounge · Chicha
+      </p>
+      <div class="noon__copy" data-sc-cue="0 0.34 0">
+        <h1 class="sc-display">Entrez à midi.<br><em>Restez jusqu'à&nbsp;4h.</em></h1>
+        <p class="sc-body">Déjeuner, terrasse chauffée, bar et longues nuits. Route de Fès, Palmeraie, Marrakech.</p>
+        <a class="btn" href="#reserver">Réserver</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13h · DÉJEUNER. The table, travelled sideways. -->
+  <section id="h13" class="scene lunch" data-sc-act="pan" data-sc-span="2.4"
+           data-from="60" data-to="300" data-label="Déjeuner">
+    <div data-sc-stage>
+      <div class="rail" data-sc-pan="0.04">
+        <div class="rail__lead">
+          <h2 class="sc-display">On passe <em>à table.</em></h2>
+          <p class="sc-body">Des assiettes généreuses, des saveurs variées et tout ce qu'il faut pour partager un vrai moment.</p>
+        </div>
+        <figure class="dish">
+          <div class="dish__img"><img src="assets/dish-tajine.webp" width="1026" height="1352" loading="lazy" alt="Tajine de bœuf aux pruneaux, œufs et fruits secs dans un plat en terre cuite"></div>
+          <figcaption><h3>Tajine aux pruneaux</h3><p>Bœuf fondant, pruneaux, fruits secs, œuf.</p></figcaption>
+        </figure>
+        <figure class="dish">
+          <div class="dish__img"><img src="assets/dish-tartare.webp" width="1026" height="1352" loading="lazy" alt="Tartare d'avocat aux crevettes dressé sur une assiette en céramique"></div>
+          <figcaption><h3>Tartare d'avocat</h3><p>Avocat, crevettes, herbes fraîches.</p></figcaption>
+        </figure>
+        <figure class="dish">
+          <div class="dish__img"><img src="assets/drink-passion.webp" width="1026" height="1352" loading="lazy" alt="Cocktail jaune au fruit de la passion avec citron vert et glace"></div>
+          <figcaption><h3>Cocktail passion</h3><p>Fruit de la passion, agrumes, glace.</p></figcaption>
+        </figure>
+        <figure class="dish">
+          <div class="dish__img"><img src="assets/dish-crepe.webp" width="1026" height="1352" loading="lazy" alt="Crêpe banane et Nutella avec fruits rouges sur une assiette bleue"></div>
+          <figcaption><h3>Crêpe banane Nutella</h3><p>Banane, Nutella, fruits rouges.</p></figcaption>
+        </figure>
+        <figure class="dish">
+          <div class="dish__img"><img src="assets/dish-fruits.webp" width="1026" height="1352" loading="lazy" alt="Assiette de fruits frais et deux cocktails colorés sur une table en travertin"></div>
+          <figcaption><h3>Salade de fruits</h3><p>Fruits frais, préparée sur place.</p></figcaption>
+        </figure>
+        <div class="rail__note">
+          <p>Et la carte continue. On vous la présente à table.</p>
+          <a class="link" href="#reserver">Réserver pour le déjeuner</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 17h · TERRASSE. Noon wipes into sunset. -->
+  <section id="h17" class="scene terrace" data-sc-act="pin" data-sc-span="1.6"
+           data-from="300" data-to="480" data-label="Terrasse">
+    <div data-sc-stage>
+      <div class="terrace__copy" data-sc-cue="0 0.9 0">
+        <h2 class="sc-display">La meilleure terrasse <em>de Marrakech.</em></h2>
+        <p class="sc-body">Terrasse chauffée sous les palmiers. Le soleil descend, les lumières s'allument, et personne ne se lève.</p>
+      </div>
+      <div class="window">
+        <img class="window__day" src="assets/terrace-day.webp" width="1096" height="1352" loading="lazy" alt="La terrasse de KOHL en plein jour, fauteuils blancs et niches en arche éclairées">
+        <img class="window__dusk" src="assets/terrace-dusk.webp" width="1368" height="1352" loading="lazy" alt="La même terrasse au coucher du soleil, ciel rose au-dessus des palmiers">
+      </div>
+    </div>
+  </section>
+
+  <!-- 20h · LE BAR. A spread you read at speed. -->
+  <section id="h20" class="scene bar" data-from="480" data-to="540" data-label="Le bar">
+    <div class="bar__grid">
+      <figure class="bar__main" data-sc-in>
+        <img src="assets/bar-neon.webp" width="1026" height="1352" loading="lazy" alt="Le barman verse un cocktail sous l'enseigne néon KOHL">
+        <figure class="bar__counter"><img src="assets/bar-counter.webp" width="1026" height="1352" loading="lazy" alt="Le comptoir du bar, cocktail à l'ananas"></figure>
+      </figure>
+      <div class="bar__copy sc-stack" data-sc-in data-sc-stagger="70">
+        <h2 class="sc-display">Le spectacle commence <em>derrière le bar.</em></h2>
+        <p class="sc-body">Chaque cocktail est préparé avec précision, passion et une touche de créativité.</p>
+      </div>
+      <figure class="bar__pour" data-sc-in>
+        <img src="assets/bar-pour.webp" width="1026" height="1352" loading="lazy" alt="Gros plan sur un shaker versé dans un verre">
+      </figure>
+    </div>
+  </section>
+
+  <!-- 21h · LA NUIT. The peak: black, then the neon. -->
+  <section id="h21" class="scene nuit" data-sc-act="pin" data-sc-span="3"
+           data-from="540" data-to="720" data-label="La nuit">
+    <div data-sc-stage>
+      <p class="nuit__hush" data-sc-cue="0.03 0.27">21h. Le soleil s'est couché.</p>
+      <div class="facade" aria-hidden="true">
+        <img data-neon="off"  src="assets/night-off.webp"  width="1012" height="1352" alt="">
+        <img data-neon="on"   src="assets/night-on.webp"   width="1012" height="1352" alt="">
+        <img data-neon="sign" src="assets/night-sign.webp" width="1012" height="1352" alt="">
+        <img data-neon="arch" src="assets/night-arch.webp" width="1012" height="1352" alt="">
+      </div>
+      <div class="nuit__scrim" aria-hidden="true"></div>
+      <div class="nuit__copy" data-sc-cue="0.64 1 0.12 0.001">
+        <h2 class="sc-display">Marrakech ne dort jamais. <em>KOHL non plus.</em></h2>
+        <p class="sc-body">Dîner, musique et chicha, tous les soirs jusqu'à 4h du matin.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 00h · LOUNGE. Close, layered, slow. -->
+  <section id="h00" class="scene lounge" data-sc-act="flow" data-from="720" data-to="960" data-label="Lounge">
+    <div class="lounge__grid">
+      <div class="lounge__copy sc-stack" data-sc-in data-sc-stagger="70">
+        <h2 class="sc-display">Après minuit, <em>la lumière baisse.</em></h2>
+        <p class="sc-body">La chicha, les bougies, les fauteuils profonds. Ici, la soirée prend son temps.</p>
+      </div>
+      <figure class="lounge__a" data-sc-parallax="-0.9"><img src="assets/lounge-neon.webp" width="1026" height="1352" loading="lazy" alt="Le lounge sous l'enseigne néon KOHL, chicha et cocktails sur une table en travertin"></figure>
+      <figure class="lounge__b" data-sc-parallax="0.7"><img src="assets/lounge-candle.webp" width="1026" height="1352" loading="lazy" alt="Une chicha bleue à la lueur d'une bougie"></figure>
+      <figure class="lounge__c" data-sc-parallax="1.6"><img src="assets/lounge-coal.webp" width="1026" height="1352" loading="lazy" alt="Une main dépose le charbon sur la chicha"></figure>
+    </div>
+  </section>
+
+  <!-- 04h · RÉSERVER. The page stops and holds. -->
+  <section id="reserver" class="scene close" data-sc-act="pin" data-sc-span="1.25"
+           data-from="960" data-to="960" data-label="Réserver">
+    <div data-sc-stage>
+      <div class="close__copy" data-sc-cue="0 1 0 0">
+        <svg class="mark" aria-hidden="true"><use href="#knot"/></svg>
+        <h2 class="sc-display">Il est 4h. <em>On vous garde une table demain ?</em></h2>
+        <p class="sc-body">Ouvert tous les jours de 12h à 4h. Route de Fès, Palmeraie, Marrakech.</p>
+        <div class="close__actions">
+          <a class="btn" href="tel:+34647591229">Réserver</a>
+          <a class="link" href="https://wa.me/34647591229" rel="noopener">WhatsApp</a>
+          <a class="link" href="https://www.google.com/maps/search/?api=1&query=Palmeraie+Marrakech" rel="noopener">Itinéraire</a>
+        </div>
+      </div>
+      <figure class="close__photo">
+        <img src="assets/close-sign.webp" width="1026" height="1352" loading="lazy" alt="Lampes en rotin et néon rose : What happens at Kohl stays at Kohl">
+      </figure>
+      <footer class="foot">
+        <span>KOHL Marrakech · Restaurant, Lounge, Chicha</span>
+        <a href="tel:+34647591229">+34 647 591 229</a>
+        <a href="#" rel="noopener">Instagram</a>
+      </footer>
+    </div>
+  </section>
+
+</main>
+
+<script src="scrollcraft.js"></script>
+<script>ScrollCraft.mount(document.body);</script>
+<script>
+/* The KOHL clock and the neon. Page-local, reads scroll, never edits the engine. */
+(function () {
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine = matchMedia('(hover: hover) and (pointer: fine)');
+  var scenes = [].slice.call(document.querySelectorAll('.scene'));
+  var timeEl = document.querySelector('.clock__time');
+  var nowEl = document.querySelector('.clock__now');
+  var dot = document.querySelector('.clock__dot');
+  var links = [].slice.call(document.querySelectorAll('.clock__hours a'));
+  var nuit = document.getElementById('h21');
+  var neon = {};
+  [].forEach.call(nuit.querySelectorAll('[data-neon]'), function (el) { neon[el.dataset.neon] = el; });
+  var noon = document.querySelector('.noon');
+  var lastTime = '', lastScene = null, lastPhase = '';
+  var clamp = function (x, a, b) { return x < a ? a : x > b ? b : x; };
+  var ramp = function (p, a, b) { return clamp((p - a) / (b - a), 0, 1); };
+
+  function pinnedP(el) {
+    var r = el.getBoundingClientRect();
+    var travel = Math.max(r.height - innerHeight, 1);
+    return clamp(-r.top / travel, 0, 1);
+  }
+
+  // A neon tube does not fade in. It catches, drops, catches again, holds.
+  function flicker(p, start) {
+    var k = p - start;
+    if (k < 0) return 0;
+    if (k < 0.008) return 0.85;
+    if (k < 0.018) return 0.05;
+    if (k < 0.024) return 0.6;
+    if (k < 0.034) return 0.15;
+    if (k < 0.05) return 0.95;
+    if (k < 0.056) return 0.4;
+    return 1;
+  }
+
+  function fmt(min) {
+    var h = (12 + Math.floor(min / 60)) % 24, m = Math.floor(min % 60);
+    return (h < 10 ? '0' : '') + h + ':' + (m < 10 ? '0' : '') + m;
+  }
+
+  function frame() {
+    var vh = innerHeight, mid = vh * 0.5, cur = scenes[0], min = 0;
+    for (var i = 0; i < scenes.length; i++) {
+      var r = scenes[i].getBoundingClientRect();
+      if (r.top <= mid) cur = scenes[i];
+    }
+    var r2 = cur.getBoundingClientRect();
+    var from = +cur.dataset.from, to = +cur.dataset.to;
+    var prog = cur.dataset.scAct === 'pin' || cur.dataset.scAct === 'pan'
+      ? pinnedP(cur)
+      : clamp((mid - r2.top) / r2.height, 0, 1);
+    min = from + (to - from) * prog;
+    if (to === from) min = from;
+
+    var t = fmt(min);
+    if (t !== lastTime) {
+      timeEl.textContent = t; lastTime = t;
+      var f = clamp(min / 960, 0, 1), a = Math.PI * (1 - f);
+      dot.setAttribute('cx', (60 + 54 * Math.cos(a)).toFixed(2));
+      dot.setAttribute('cy', (38 - 34 * Math.sin(a)).toFixed(2));
+    }
+    if (cur !== lastScene) {
+      lastScene = cur;
+      nowEl.textContent = cur.dataset.label;
+      links.forEach(function (l) {
+        l.setAttribute('aria-current', l.getAttribute('href') === '#' + cur.id ? 'true' : 'false');
+      });
+    }
+
+    // The neon. Off fades up out of the black, the sign catches, the arch
+    // catches, then the whole façade floods magenta.
+    var np = pinnedP(nuit);
+    var nr = nuit.getBoundingClientRect();
+    var offOp = ramp(np, 0.14, 0.3), sign, arch, on;
+    if (reduce) {
+      sign = ramp(np, 0.34, 0.42); arch = ramp(np, 0.44, 0.52); on = ramp(np, 0.54, 0.66);
+    } else {
+      sign = flicker(np, 0.34); arch = flicker(np, 0.46); on = ramp(np, 0.54, 0.68);
+    }
+    neon.off.style.opacity = offOp;
+    neon.sign.style.opacity = sign * (1 - on);
+    neon.arch.style.opacity = arch * (1 - on);
+    neon.on.style.opacity = on;
+
+    var phase = (nr.top < vh && np >= 0.34) || cur.id === 'h00' || cur.id === 'reserver' ? 'night' : 'day';
+    if (nr.bottom < 0) phase = 'night';
+    if (phase !== lastPhase) { document.body.dataset.phase = phase; lastPhase = phase; }
+  }
+
+  var dirty = true;
+  function loop() { if (dirty) { dirty = false; frame(); } requestAnimationFrame(loop); }
+  addEventListener('scroll', function () { dirty = true; }, { passive: true });
+  addEventListener('resize', function () { dirty = true; });
+  requestAnimationFrame(loop);
+
+  // Hour links land where the hour is worth seeing (21h lands on the lit sign).
+  links.forEach(function (l) {
+    var land = parseFloat(l.dataset.land || '0');
+    if (!land) return;
+    l.addEventListener('click', function (e) {
+      var el = document.querySelector(l.getAttribute('href'));
+      var travel = el.offsetHeight - innerHeight;
+      e.preventDefault();
+      scrollTo({ top: el.offsetTop + travel * land, behavior: reduce ? 'auto' : 'smooth' });
+      history.replaceState(null, '', l.getAttribute('href'));
+    });
+  });
+
+  // Lean in the doorway: the planes shift at their own depths.
+  if (!reduce && noon) {
+    var tx = 0, ty = 0, cx = 0, cy = 0, active = false;
+    addEventListener('pointermove', function (e) {
+      if (!fine.matches || e.pointerType !== 'mouse') return;
+      tx = e.clientX / innerWidth * 2 - 1; ty = e.clientY / innerHeight * 2 - 1;
+      if (!active) { active = true; requestAnimationFrame(lean); }
+    }, { passive: true });
+    function lean() {
+      cx += (tx - cx) * 0.08; cy += (ty - cy) * 0.08;
+      noon.style.setProperty('--pmx', cx.toFixed(4));
+      noon.style.setProperty('--pmy', cy.toFixed(4));
+      if (Math.abs(tx - cx) + Math.abs(ty - cy) > 0.002) requestAnimationFrame(lean); else active = false;
+    }
+  }
+})();
+</script>
+</body>
+</html>
